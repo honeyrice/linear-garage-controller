@@ -1,4 +1,4 @@
-# ESPHome 固件
+# ESPHome firmware · ESPHome 固件
 
 已使用版本：ESPHome 2026.8.2，ESP-IDF 框架，ESP32 4 MB。发布包保留实际控制算法，统一了示例名称：`linear-garage-controller` / Linear Garage Controller、Gate State、Open Gate、Close Gate、Controller Online。
 

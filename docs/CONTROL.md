@@ -1,4 +1,4 @@
-# 定向控制
+# Directional control · 定向控制
 
 Open Gate / Close Gate 是目标请求；Gate Button 是原始单次按键。原生按钮在运动中停车，停止后通常反向，因此同一目标在不同状态下可能需要不同脉冲数。
 
