@@ -1,4 +1,34 @@
-# Offline tests · 离线测试
+# Offline tests
+
+[English](#english) | [简体中文](#简体中文)
+
+## English
+
+After installing requirements.txt, run from the repository root:
+
+```sh
+python tests/run_tests.py
+```
+
+Requirements are a C++17 compiler, Python, Jinja2, and PyYAML. The script only creates temporary test executables; it does not access the network, serial ports, HA, or the relay.
+
+- `gate_controller_v2_test.cpp` / `gate_control_sim.h`: a deterministic door model driven by the actual header-file algorithms, covering repeated targets, rapid reversal, endpoints, queuing, and error handling.
+- `position_tracker_test.cpp`: startup, calibration, stale contact state, out-of-range counts, clock wraparound, and field-count replay.
+- `field-counts.txt`: 301 COUNT values extracted from the first actual round-trip recording. Timestamps, boot information, and network information were removed. Tests replay the counts at 500 ms intervals and simulate contact-sensor events; this does not imply that the original log captured contact-event timing.
+- `home-assistant/test_statistics.py`: 19 statistics scenarios.
+- `home-assistant/test_cover_migration.py`: 8 cover state/routing scenarios.
+
+Tests use this installation's 1049-count travel as a fixed fixture. If travel or control parameters change, update the model and replay expectations accordingly. Passing results are software evidence and do not replace actual door-motion tests, hardware-reset transient checks, printed-fit checks, or long-term stability validation.
+
+On macOS, if Command Line Tools cannot find a standard header such as `cstdint`, first repair the developer-tool selection, or set this for the current run:
+
+```sh
+CPLUS_INCLUDE_PATH="$(xcrun --show-sdk-path)/usr/include/c++/v1" python tests/run_tests.py
+```
+
+---
+
+## 简体中文
 
 在仓库根目录安装 requirements.txt 后运行：
 

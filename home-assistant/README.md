@@ -1,8 +1,78 @@
 # Home Assistant
 
+[English](#english) | [简体中文](#简体中文)
+
+## English
+
+These are portable examples. Check your own entity IDs first, and replace them consistently across this directory's YAML, Jinja, and generator scripts. Changing only one file can leave inconsistent statistics or test references.
+
+### Entity mapping
+
+| Example ID | Source |
+|---|---|
+| `sensor.linear_garage_controller_gate_state` | ESPHome Gate State |
+| `sensor.linear_garage_controller_motion` | ESPHome Motion |
+| `sensor.linear_garage_controller_opening` | ESPHome Opening |
+| `binary_sensor.linear_garage_controller_controller_online` | ESPHome Controller Online |
+| `button.linear_garage_controller_open_gate` | Open Gate |
+| `button.linear_garage_controller_close_gate` | Close Gate |
+| `button.linear_garage_controller_gate_button` | Gate Button |
+| `binary_sensor.garage_closed_contact` | Independent contact sensor; off = fully closed |
+| `notify.mobile_app_your_phone` | Your phone notification action |
+
+HA may generate different IDs; use Developer Tools → States as the source of truth. After adding the device through the ESPHome integration, allow its required HA state subscriptions and confirm that the closed reference is available.
+
+### Installing templates
+
+Place these three files in HA's `templates/` directory:
+
+- `garage_gate_controller.yaml`
+- `linear_garage_cache.yaml`
+- `linear_garage_statistics.yaml`
+
+For a directory-merge setup, use this in `configuration.yaml`:
+
+```yaml
+template: !include_dir_merge_list templates/
+homeassistant:
+  packages: !include_dir_named packages/
+```
+
+Merge into existing `template` or `homeassistant` configuration without duplicating top-level keys. Place `linear_garage_statistics_package.yaml` in `packages/` and change its notification action first. Check the configuration, then reload templates and automations, or reload according to your existing include structure.
+
+If `cover.garage_gate_controller` already exists, replace the original cover definition while retaining its unique_id and entity ID. **Do not load both definitions simultaneously.** A new installation can use the example IDs. Keeping the same cover identity preserves references from existing automations, dashboards, and HomeKit.
+
+The cover's Open/Close actions call the local directional buttons. Stop sends a raw button press only when motion is opening/closing. The cover is unavailable offline. Arbitrary percentage positioning is not implemented: displaying an opening percentage does not imply support for `set_cover_position`.
+
+### Cache and statistics
+
+Last Known Gate State stores only the last valid state, opening percentage, and recording time. Live unknown/unavailable states do not overwrite it. The cache may be stale and must not be treated as current safety information or used directly for directional control.
+
+Statistics include daily/lifetime opening and closing motion-start counts, the latest full-travel duration, learned duration baselines for each direction, and time spent not fully closed. Counts reflect observed motion, including factory-button operations and restarts midway; they are not command counts or complete round-trip counts.
+
+Only complete trips train the baseline. Trips interrupted by stops, reversals, disconnection, or reboot are excluded from normal samples. Slow-travel alerts become active after at least five samples per direction and use the median of the last ten normal complete trips. A trip must exceed the baseline by both 30% and two seconds to trigger an alert. Alerts notify only; they do not close the door. Network and stop-detection delays are included in the measurement, so an alert alone does not diagnose a mechanical fault.
+
+Generate the statistics YAML with:
+
+```sh
+python home-assistant/build_statistics.py
+```
+
+`gate_left_open_package.yaml` is an optional example that notifies after the door remains open for ten minutes. Set your notification action before placing it in packages. Reuse an existing equivalent automation to avoid duplicate alerts. HA `for` timers reset on restart or automation reload.
+
+### HomeKit Bridge
+
+Add **`cover.garage_gate_controller`** to the included entities of your existing HomeKit Bridge. Do not represent the raw button as a light. If the same cover was already exported and its identity is unchanged, replacing the backend usually does not require rebuilding the bridge. Still confirm state and operation in the Apple Home client.
+
+Project records verify HA-side bridge inclusion and the existing accessory identity; HA screenshots are not Apple Home client acceptance evidence. Follow HomeKit's operating requirements for locks and garage doors.
+
+---
+
+## 简体中文
+
 这些是可移植示例，需要先核对自己的实体 ID。适配时在此目录的 YAML、Jinja 和生成脚本中统一替换；只改一个文件会使统计或测试引用不一致。
 
-## 实体映射
+### 实体映射
 
 | 示例 ID | 来源 |
 |---|---|
@@ -18,7 +88,7 @@
 
 HA 实际自动生成的 ID 可能不同，以“开发者工具 → 状态”为准。用 ESPHome 集成加入设备后，允许该设备执行所需 HA 状态订阅，并确认全关参考可用。
 
-## 安装模板
+### 安装模板
 
 将以下三个文件放入 HA 的 `templates/` 目录：
 
@@ -40,7 +110,7 @@ homeassistant:
 
 Cover 的 Open/Close 调用本地定向按钮；Stop 仅在 motion 为 opening/closing 时发原始按键。离线时 cover 不可用。没有实现任意百分比位置控制，显示开度不等于支持 `set_cover_position`。
 
-## 缓存与统计
+### 缓存与统计
 
 Last Known Gate State 只保存上一次有效状态、开度及记录时间；实时 unknown/unavailable 不覆盖缓存。缓存可能过时，不能据此判断当前安全状况或直接用于定向控制。
 
@@ -56,7 +126,7 @@ python home-assistant/build_statistics.py
 
 开门超过十分钟通知的可选示例为 `gate_left_open_package.yaml`，放入 packages 前先设置自己的通知 action。已有同类提醒时复用现有自动化，避免重复提醒。HA 的 `for` 计时会在重启/自动化重载时重置。
 
-## HomeKit Bridge
+### HomeKit Bridge
 
 在现有 HomeKit Bridge 的包含实体列表中加入 **`cover.garage_gate_controller`**。不要把原始按钮模拟成灯。若同一 cover 原本已导出且身份未变，后端替换通常无需重建桥接；仍需在 Apple Home 客户端实际确认状态和操作。
 

@@ -1,4 +1,56 @@
-# Wiring & BOM · 接线与物料
+# Wiring & BOM
+
+[English](#english) | [简体中文](#简体中文)
+
+## English
+
+| Component | Configuration used in this project |
+|---|---|
+| Opener | Linear LDCO800 with its original dual-channel encoder |
+| Controller | ESP32-WROOM-32E, 38-pin, 4 MB development board |
+| Splitter | Four-wire, straight-through 4-pin Y splitter |
+| Level converter | Four-channel bidirectional HV/LV module; two channels used |
+| Relay | SRD-03VDC-SL-C module, 3 V coil, active-high input |
+| Closed reference | Independent contact sensor; HA off = fully closed, on = not fully closed |
+| Power | Separate USB supply for ESP32; 3V3 supplies converter LV and relay VCC |
+| Wiring | Short internal 28 AWG Dupont leads and 22 AWG wire, securely fastened with strain relief |
+
+![Electrical wiring diagram, with Chinese labels](wiring.svg)
+
+The diagram shows electrical connections, not the physical header order of arbitrary modules. Its labels are in Chinese; the table below gives the complete encoder connection mapping in English. Factory wire colors are records from this unit and must be verified by measurement before reuse.
+
+| Factory connection | Level converter | ESP32 |
+|---|---|---|
+| E4 red, measured about 4.94 V | HV | Do not connect to ESP32 3V3 / USB 5V |
+| E3 orange, encoder channel one | HV1 → LV1 | GPIO22 |
+| E2 brown, encoder channel two | HV2 → LV2 | GPIO23 |
+| E1 black, ground | GND | GND |
+| Low-voltage reference | LV | 3V3 |
+
+The original encoder-to-mainboard path remains straight through; the added branch reads the signals in parallel. The factory approximately 5 V supply is only the HV reference, not the ESP32 power source. A shared ground does not mean this converter provides electrical isolation.
+
+### Relay
+
+- VCC → ESP32 3V3; GND → ESP32 GND; IN → GPIO13.
+- COM / NO → factory COMMON / PUSHBUTTON terminals. This contact pair has no polarity requirement.
+- Leave NC unused. Do not connect to the BEAM safety-sensor terminals or inject ESP32 supply voltage into the button terminals.
+- This board uses a 3 V coil module. If substituting a 5 V module, recheck its supply requirements, trigger threshold, and ESP32 compatibility.
+
+First leave COM/NO disconnected and observe one energize action followed by release about 0.5 seconds later. Also verify that power-up/reset does not cause an unintended activation. Unloaded relay operation and final installation have been confirmed for this project; firmware `ALWAYS_OFF` does not prove that every development board is free of output pulses during power-up transients.
+
+![Components installed in the enclosure](images/03-components-in-box.jpg)
+
+### Installation sequence
+
+1. Disconnect power and check matching Y-cable pin continuity and absence of shorts.
+2. Verify normal operation of the factory wiring before adding the converter and ESP32.
+3. In a controlled on-site test, confirm opening/closing direction, full-travel count, and closed reference.
+4. After confirming relay pulses, connect the low-voltage button terminals. Finish insulation, fastening, and wire strain relief.
+5. Close the enclosure after wiring and validation, maintaining appropriate separation from mains circuitry inside the opener.
+
+---
+
+## 简体中文
 
 | 元件 | 本项目配置 |
 |---|---|
@@ -25,7 +77,7 @@
 
 编码器和原厂主板之间保留直通路径；额外支路只是并接采集。原厂约 5 V 用于 HV 参考，不为 ESP32 供电。共地并不代表这块转换板提供电气隔离。
 
-## 继电器
+### 继电器
 
 - VCC → ESP32 3V3；GND → ESP32 GND；IN → GPIO13。
 - COM / NO → 原厂 COMMON / PUSHBUTTON 两个按钮端子；这对触点本身不要求极性。
@@ -34,9 +86,9 @@
 
 先在 COM/NO 留空时观察一次吸合、约 0.5 秒后释放，再验证上电/复位不误触发。本项目已确认空载吸合释放及最终装机，固件 `ALWAYS_OFF` 不等于证明任何开发板的上电瞬态均无脉冲。
 
-![最终内部组装](images/03-internal-assembly.png)
+![最终内部组装](images/03-components-in-box.jpg)
 
-## 安装顺序
+### 安装顺序
 
 1. 断电，核对 Y 线各对应端子的连通与无短路。
 2. 先验证原厂线路正常，再接转换板与 ESP32。

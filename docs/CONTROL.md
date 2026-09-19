@@ -1,4 +1,36 @@
-# Directional control · 定向控制
+# Directional control
+
+[English](#english) | [简体中文](#简体中文)
+
+## English
+
+Open Gate and Close Gate are target requests; Gate Button is a raw single press. The factory button stops a moving door and usually reverses direction on the next activation after stopping, so the same target can require different numbers of pulses depending on the current state.
+
+| State / request | Behavior |
+|---|---|
+| Already at the target endpoint or moving toward it | Do not add a pulse |
+| Moving in the opposite direction | Stop, confirm that motion has stopped, then restart |
+| Stopped midway; previous direction opposite to target | Usually one pulse |
+| Stopped midway; previous direction same as target | Usually reverse → stop → desired direction, three pulses |
+| Close immediately after Open | Retain the latest target, wait for the current pulse/cooldown, then reverse using feedback |
+| Absolute position unknown, actual direction known | Use live motion direction |
+| Direction also unknown | Probe once, observe feedback, then adjust; a brief movement in the opposite direction is possible |
+| Closed reference still settling | Defer action to avoid treating a just-closed door as stopped midway |
+| Count out of range | Report a fault instead of using ordinary unknown-position probing |
+
+Each pulse lasts 500 ms, followed by a 1500 ms cooldown. No new encoder edge for 1500 ms means stopped. If there have already been no edges for the last 250 ms, defer a stop pulse based on stale motion status. An active sequence allows at most 6 pulses over 20 seconds, with up to 5 seconds of feedback waiting per step. Rapid changes of target do not extend the sequence's overall deadline.
+
+Startup and reconnection do not trigger movement or restore an old target. Missing feedback does not cause unlimited retries. The sequence ends once the requested motion direction is confirmed: `opening_confirmed` does not mean fully open. A later factory obstacle reversal does not make this module repeatedly attempt to close the door.
+
+Gate Button cancels the directional target and queues one raw press, subject to the pulse cooldown. HA Stop sends a raw press only when HA considers the door to be moving. Network delay, stop detection, and endpoint races can still affect the result; it is not an immediate emergency stop.
+
+State values are `closed`, `opening`, `closing`, `stopped`, `unknown`, and `open_estimated`. Fully closed requires the contact sensor plus a 2.5-second settling period. Fully open is estimated at 99.5% of the calibrated full-travel count.
+
+Offline simulation cannot cover every mechanical response. The current inputs cannot reliably distinguish a frozen encoder from a stationary door, and do not replace the factory protections.
+
+---
+
+## 简体中文
 
 Open Gate / Close Gate 是目标请求；Gate Button 是原始单次按键。原生按钮在运动中停车，停止后通常反向，因此同一目标在不同状态下可能需要不同脉冲数。
 

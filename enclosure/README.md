@@ -1,4 +1,33 @@
-# Enclosure & STL · 打印外壳
+# Enclosure & STL
+
+[English](#english) | [简体中文](#简体中文)
+
+## English
+
+The latest CAD archive is V0.27. The main body measures approximately **82.22 × 57.5 × 32 mm**, excluding four external mounting ears. It houses three circuit boards, with connections for USB, a four-wire encoder branch, and two dry-contact leads.
+
+See [dimensions.json](dimensions.json) for the full dimensional record. Values come from measurements and engineering envelopes for this unit; different development boards, headers, relays, and printing tolerances require checking. This file records dimensions and is not standalone CAD source that can generate the model.
+
+The V0.27 control-wire opening is 4.23 × 2.23 mm, with its center 14.35 mm above the enclosure's external bottom surface. Use the complete base and matching lid together; do not freely mix older lids with this base.
+
+Some lid-to-base snap geometry was adapted from external reference models. This directory provides the final V0.27 base and lid STLs. Original reference models and build scripts that depend on them are not included.
+
+The author confirmed final printing, assembly, and installation inside the opener. Photographs cannot uniquely identify the printed STL revision. V0.27 is the latest CAD record; installation photographs are not exact revision identification.
+
+### STL downloads
+
+- [V0.27 complete base](stl/garage-v0.27-base.stl)
+- [V0.27 matching lid](stl/garage-v0.27-lid.stl)
+- [SHA-256 checksums](stl/SHA256SUMS)
+- [Mesh validation results](mesh-validation.json)
+
+Choose **Download raw file** on the GitHub file page. Both models use **millimeters (mm)**. STL does not store units, so import into the slicer as millimeters at 100% scale. The base includes external mounting ears, making its full bounding width about 73.9 mm; the 57.5 mm dimension above is the body width without ears.
+
+Both STLs are byte-for-byte identical to the local V0.27 archive and have watertight meshes, consistent winding, and a single connected component. Publication only rechecked existing meshes; it did not include new slicing or physical fit testing.
+
+---
+
+## 简体中文
 
 最新 CAD 档案为 V0.27，主体外形约 **82.22 × 57.5 × 32 mm**，不含四个外置固定耳。布置三块电路板，外接 USB、四芯编码器支路、两芯干接点线。
 
@@ -10,7 +39,7 @@ V0.27 控制线孔为 4.23 × 2.23 mm，中心距盒子外底面 14.35 mm。完�
 
 项目最终打印、装配与机内安装已由作者确认；照片无法唯一识别打印 STL 的修订号。V0.27 是最新 CAD 记录，不把安装照片当作精确版本鉴定。
 
-## STL 下载
+### STL 下载
 
 - [V0.27 完整底壳](stl/garage-v0.27-base.stl)
 - [V0.27 配套上盖](stl/garage-v0.27-lid.stl)
