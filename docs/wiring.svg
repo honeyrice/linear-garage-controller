@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1680" height="1430" viewBox="0 0 1680 1430">
+<rect width="1680" height="1430" fill="white"/>
+<style>text {font-family:"Arial Unicode MS","Heiti SC",sans-serif;fill:#182536} .wire{fill:none;stroke-linecap:round;stroke-linejoin:round}</style>
+<text x="60" y="62" font-size="39" text-anchor="start" font-weight="bold">车库门 ESP32｜电气接线图</text>
+<text x="60" y="103" font-size="23" text-anchor="start" font-weight="normal" style="fill:#566373">原厂线按 E4 → E1：红 → 橙 → 棕 → 黑；模块按端子名称连接。相同网标相连，实心圆点为分线接点。</text>
+<text x="60" y="157" font-size="27" text-anchor="start" font-weight="bold">① 原厂编码器保留原连接，Y 分线器并联引出 4 根线</text>
+<rect x="60" y="190" width="290" height="275" rx="5" fill="#f7f9fb" stroke="#405265" stroke-width="2"/>
+<rect x="1290" y="190" width="330" height="275" rx="5" fill="#f7f9fb" stroke="#405265" stroke-width="2"/>
+<text x="205" y="227" font-size="26" text-anchor="middle" font-weight="bold">原厂编码器</text>
+<text x="1455" y="227" font-size="26" text-anchor="middle" font-weight="bold">原厂主板 J3</text>
+<text x="830" y="225" font-size="22" text-anchor="middle" font-weight="normal" style="fill:#566373">Y 分线接点（壳外）</text>
+<text x="82" y="278" font-size="23" text-anchor="start" font-weight="normal">E4 红：供电</text>
+<text x="1310" y="278" font-size="23" text-anchor="start" font-weight="normal">原对应端子</text>
+<polyline class="wire" points="350,270 1290,270" stroke="#be3030" stroke-width="3"/>
+<circle cx="350" cy="270" r="5" fill="white" stroke="#be3030" stroke-width="2"/>
+<circle cx="1290" cy="270" r="5" fill="white" stroke="#be3030" stroke-width="2"/>
+<circle cx="830" cy="270" r="5" fill="#be3030" stroke="#be3030" stroke-width="2"/>
+<polyline class="wire" points="830,270 830,288 858,288" stroke="#be3030" stroke-width="2"/>
+<text x="870" y="296" font-size="20" text-anchor="start" font-weight="normal" style="fill:#be3030">ENC_5V</text>
+<text x="82" y="333" font-size="23" text-anchor="start" font-weight="normal">E3 橙：信号 1</text>
+<text x="1310" y="333" font-size="23" text-anchor="start" font-weight="normal">原对应端子</text>
+<polyline class="wire" points="350,325 1290,325" stroke="#c56713" stroke-width="3"/>
+<circle cx="350" cy="325" r="5" fill="white" stroke="#c56713" stroke-width="2"/>
+<circle cx="1290" cy="325" r="5" fill="white" stroke="#c56713" stroke-width="2"/>
+<circle cx="830" cy="325" r="5" fill="#c56713" stroke="#c56713" stroke-width="2"/>
+<polyline class="wire" points="830,325 830,343 858,343" stroke="#c56713" stroke-width="2"/>
+<text x="870" y="351" font-size="20" text-anchor="start" font-weight="normal" style="fill:#c56713">ENC_A</text>
+<text x="82" y="388" font-size="23" text-anchor="start" font-weight="normal">E2 棕：信号 2</text>
+<text x="1310" y="388" font-size="23" text-anchor="start" font-weight="normal">原对应端子</text>
+<polyline class="wire" points="350,380 1290,380" stroke="#85512d" stroke-width="3"/>
+<circle cx="350" cy="380" r="5" fill="white" stroke="#85512d" stroke-width="2"/>
+<circle cx="1290" cy="380" r="5" fill="white" stroke="#85512d" stroke-width="2"/>
+<circle cx="830" cy="380" r="5" fill="#85512d" stroke="#85512d" stroke-width="2"/>
+<polyline class="wire" points="830,380 830,398 858,398" stroke="#85512d" stroke-width="2"/>
+<text x="870" y="406" font-size="20" text-anchor="start" font-weight="normal" style="fill:#85512d">ENC_B</text>
+<text x="82" y="443" font-size="23" text-anchor="start" font-weight="normal">E1 黑：公共地</text>
+<text x="1310" y="443" font-size="23" text-anchor="start" font-weight="normal">原对应端子</text>
+<polyline class="wire" points="350,435 1290,435" stroke="#263238" stroke-width="3"/>
+<circle cx="350" cy="435" r="5" fill="white" stroke="#263238" stroke-width="2"/>
+<circle cx="1290" cy="435" r="5" fill="white" stroke="#263238" stroke-width="2"/>
+<circle cx="830" cy="435" r="5" fill="#263238" stroke="#263238" stroke-width="2"/>
+<polyline class="wire" points="830,435 830,453 858,453" stroke="#263238" stroke-width="2"/>
+<text x="870" y="461" font-size="20" text-anchor="start" font-weight="normal" style="fill:#263238">GND</text>
+<text x="60" y="520" font-size="27" text-anchor="start" font-weight="bold">② 感应部分：GPIO22 / GPIO23</text>
+<rect x="385" y="580" width="1235" height="417" rx="10" fill="#fcfdff" stroke="#70869a" stroke-width="2" stroke-dasharray="10 7"/>
+<text x="402" y="609" font-size="20" text-anchor="start" font-weight="normal" style="fill:#61758a">新外壳边界</text>
+<rect x="510" y="635" width="405" height="325" rx="5" fill="white" stroke="#405265" stroke-width="2"/>
+<rect x="1220" y="635" width="355" height="325" rx="5" fill="#f3f7fb" stroke="#405265" stroke-width="2"/>
+<text x="712" y="670" font-size="26" text-anchor="middle" font-weight="bold">Level Converter</text>
+<text x="1397" y="670" font-size="26" text-anchor="middle" font-weight="bold">ESP32 · 16号板</text>
+<text x="532" y="706" font-size="20" text-anchor="start" font-weight="normal" style="fill:#566373">HV侧（约5V）</text>
+<text x="895" y="706" font-size="20" text-anchor="end" font-weight="normal" style="fill:#566373">LV侧（3.3V）</text>
+<rect x="1290" y="510" width="270" height="64" rx="5" fill="#eef4fa" stroke="#405265" stroke-width="2"/>
+<text x="1425" y="537" font-size="22" text-anchor="middle" font-weight="bold">外部 USB 电源</text>
+<text x="1425" y="561" font-size="20" text-anchor="middle" font-weight="normal">5V → Micro-USB</text>
+<polyline class="wire" points="1430,574 1430,635" stroke="#416184" stroke-width="4"/>
+<text x="1450" y="628" font-size="18" text-anchor="start" font-weight="normal" style="fill:#416184">USB</text>
+<text x="65" y="652" font-size="21" text-anchor="start" font-weight="bold">来自上方 Y 分线器</text>
+<text x="65" y="681" font-size="21" text-anchor="start" font-weight="normal" style="fill:#566373">一组四芯线入壳</text>
+<text x="65" y="750" font-size="25" text-anchor="start" font-weight="bold" style="fill:#be3030">ENC_5V</text>
+<polyline class="wire" points="237,742 510,742" stroke="#be3030" stroke-width="3"/>
+<circle cx="510" cy="742" r="5" fill="white" stroke="#be3030" stroke-width="2"/>
+<text x="530" y="750" font-size="24" text-anchor="start" font-weight="bold">HV</text>
+<text x="893" y="750" font-size="24" text-anchor="end" font-weight="bold">LV</text>
+<circle cx="915" cy="742" r="5" fill="white" stroke="#8735a0" stroke-width="2"/>
+<polyline class="wire" points="915,742 1220,742" stroke="#8735a0" stroke-width="3"/>
+<circle cx="1220" cy="742" r="5" fill="white" stroke="#8735a0" stroke-width="2"/>
+<text x="1240" y="750" font-size="24" text-anchor="start" font-weight="bold">3V3</text>
+<text x="65" y="810" font-size="25" text-anchor="start" font-weight="bold" style="fill:#c56713">ENC_A</text>
+<polyline class="wire" points="237,802 510,802" stroke="#c56713" stroke-width="3"/>
+<circle cx="510" cy="802" r="5" fill="white" stroke="#c56713" stroke-width="2"/>
+<text x="530" y="810" font-size="24" text-anchor="start" font-weight="bold">HV1</text>
+<text x="893" y="810" font-size="24" text-anchor="end" font-weight="bold">LV1</text>
+<circle cx="915" cy="802" r="5" fill="white" stroke="#197f54" stroke-width="2"/>
+<polyline class="wire" points="915,802 1220,802" stroke="#197f54" stroke-width="3"/>
+<circle cx="1220" cy="802" r="5" fill="white" stroke="#197f54" stroke-width="2"/>
+<text x="1240" y="810" font-size="24" text-anchor="start" font-weight="bold">GPIO22</text>
+<text x="65" y="870" font-size="25" text-anchor="start" font-weight="bold" style="fill:#85512d">ENC_B</text>
+<polyline class="wire" points="237,862 510,862" stroke="#85512d" stroke-width="3"/>
+<circle cx="510" cy="862" r="5" fill="white" stroke="#85512d" stroke-width="2"/>
+<text x="530" y="870" font-size="24" text-anchor="start" font-weight="bold">HV2</text>
+<text x="893" y="870" font-size="24" text-anchor="end" font-weight="bold">LV2</text>
+<circle cx="915" cy="862" r="5" fill="white" stroke="#216ab5" stroke-width="2"/>
+<polyline class="wire" points="915,862 1220,862" stroke="#216ab5" stroke-width="3"/>
+<circle cx="1220" cy="862" r="5" fill="white" stroke="#216ab5" stroke-width="2"/>
+<text x="1240" y="870" font-size="24" text-anchor="start" font-weight="bold">GPIO23</text>
+<text x="65" y="930" font-size="25" text-anchor="start" font-weight="bold" style="fill:#263238">GND</text>
+<polyline class="wire" points="237,922 510,922" stroke="#263238" stroke-width="3"/>
+<circle cx="510" cy="922" r="5" fill="white" stroke="#263238" stroke-width="2"/>
+<text x="530" y="930" font-size="24" text-anchor="start" font-weight="bold">GND</text>
+<text x="893" y="930" font-size="24" text-anchor="end" font-weight="bold">GND</text>
+<circle cx="915" cy="922" r="5" fill="white" stroke="#263238" stroke-width="2"/>
+<polyline class="wire" points="915,922 1220,922" stroke="#263238" stroke-width="3"/>
+<circle cx="1220" cy="922" r="5" fill="white" stroke="#263238" stroke-width="2"/>
+<text x="1240" y="930" font-size="24" text-anchor="start" font-weight="bold">GND</text>
+<polyline class="wire" points="595,922 825,922" stroke="#263238" stroke-width="2"/>
+<text x="712" y="908" font-size="17" text-anchor="middle" font-weight="normal" style="fill:#566373">两侧 GND 共地</text>
+<text x="365" y="730" font-size="17" text-anchor="middle" font-weight="normal" style="fill:#be3030">4.94V 实测</text>
+<text x="1070" y="730" font-size="18" text-anchor="middle" font-weight="normal" style="fill:#8735a0">3.3V 参考供电</text>
+<text x="1068" y="839" font-size="18" text-anchor="middle" font-weight="normal" style="fill:#566373">两路信号 →</text>
+<text x="712" y="985" font-size="18" text-anchor="middle" font-weight="normal" style="fill:#566373">模块端子示意，非实物排针位置</text>
+<text x="1397" y="985" font-size="20" text-anchor="middle" font-weight="normal" style="fill:#566373">按左端就近走线，分两排</text>
+<text x="65" y="982" font-size="20" text-anchor="start" font-weight="normal" style="fill:#566373">HV3/LV3、HV4/LV4 留空</text>
+<text x="60" y="1053" font-size="27" text-anchor="start" font-weight="bold">③ 继电器控制：增加一组两芯线出壳</text>
+<rect x="510" y="1090" width="405" height="215" rx="5" fill="#fffaf0" stroke="#b18a45" stroke-width="2" stroke-dasharray="10 7"/>
+<text x="712" y="1125" font-size="24" text-anchor="middle" font-weight="bold">继电器模块 · 3V/3.3V</text>
+<rect x="1250" y="1143" width="370" height="162" rx="5" fill="#f7f9fb" stroke="#405265" stroke-width="2"/>
+<text x="1435" y="1175" font-size="23" text-anchor="middle" font-weight="bold">原厂按钮端子</text>
+<text x="65" y="1180" font-size="22" text-anchor="start" font-weight="normal">3.3V</text>
+<polyline class="wire" points="355,1172 510,1172" stroke="#a17a36" stroke-width="2" stroke-dasharray="8 6"/>
+<circle cx="510" cy="1172" r="5" fill="white" stroke="#a17a36" stroke-width="2"/>
+<text x="530" y="1180" font-size="23" text-anchor="start" font-weight="bold">VCC</text>
+<text x="65" y="1234" font-size="22" text-anchor="start" font-weight="normal">GND</text>
+<polyline class="wire" points="355,1226 510,1226" stroke="#a17a36" stroke-width="2" stroke-dasharray="8 6"/>
+<circle cx="510" cy="1226" r="5" fill="white" stroke="#a17a36" stroke-width="2"/>
+<text x="530" y="1234" font-size="23" text-anchor="start" font-weight="bold">GND</text>
+<text x="65" y="1288" font-size="22" text-anchor="start" font-weight="normal">GPIO13</text>
+<polyline class="wire" points="355,1280 510,1280" stroke="#a17a36" stroke-width="2" stroke-dasharray="8 6"/>
+<circle cx="510" cy="1280" r="5" fill="white" stroke="#a17a36" stroke-width="2"/>
+<text x="530" y="1288" font-size="23" text-anchor="start" font-weight="bold">IN</text>
+<text x="893" y="1234" font-size="23" text-anchor="end" font-weight="bold">COM</text>
+<circle cx="915" cy="1226" r="5" fill="white" stroke="#a17a36" stroke-width="2"/>
+<polyline class="wire" points="915,1226 1250,1226" stroke="#a17a36" stroke-width="2" stroke-dasharray="8 6"/>
+<circle cx="1250" cy="1226" r="5" fill="white" stroke="#a17a36" stroke-width="2"/>
+<text x="1270" y="1234" font-size="23" text-anchor="start" font-weight="bold">COMMON</text>
+<text x="893" y="1288" font-size="23" text-anchor="end" font-weight="bold">NO</text>
+<circle cx="915" cy="1280" r="5" fill="white" stroke="#a17a36" stroke-width="2"/>
+<polyline class="wire" points="915,1280 1250,1280" stroke="#a17a36" stroke-width="2" stroke-dasharray="8 6"/>
+<circle cx="1250" cy="1280" r="5" fill="white" stroke="#a17a36" stroke-width="2"/>
+<text x="1270" y="1288" font-size="23" text-anchor="start" font-weight="bold">PUSHBUTTON</text>
+<text x="893" y="1175" font-size="20" text-anchor="end" font-weight="normal" style="fill:#566373">NC：不接</text>
+<text x="712" y="1337" font-size="21" text-anchor="middle" font-weight="normal" style="fill:#7c653e">继电器只连接低压按钮回路；NC 不接，不切换市电。</text>
+<polyline class="wire" points="60,1360 1620,1360" stroke="#c9d1da" stroke-width="1"/>
+<text x="60" y="1400" font-size="24" text-anchor="start" font-weight="bold" style="fill:#963636">ENC_5V 只接 HV，不能接 ESP32 的 3V3。继电器 VCC 禁接 5V。</text>
+</svg>

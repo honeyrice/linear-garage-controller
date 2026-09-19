@@ -1,0 +1,15 @@
+# Optional: omit if an existing automation already handles this notification.
+automation:
+  - id: garage_gate_left_open_example
+    alias: Garage Gate Left Open
+    triggers:
+      - trigger: state
+        entity_id: binary_sensor.garage_closed_contact
+        to: 'on'
+        for: '00:10:00'
+    actions:
+      - action: notify.mobile_app_your_phone
+        data:
+          title: Garage Gate Left Open
+          message: The garage gate has not been fully closed for ten minutes.
+    mode: single

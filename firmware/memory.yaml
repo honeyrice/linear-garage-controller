@@ -1,0 +1,12 @@
+# Runtime internal heap diagnostics. Keep normal INFO logging and BLE settings.
+debug:
+  update_interval: 10s
+
+sensor:
+  - platform: debug
+    free:
+      name: Free Heap
+    min_free:
+      name: Minimum Free Heap
+    block:
+      name: Largest Free Heap Block

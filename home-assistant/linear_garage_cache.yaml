@@ -1,0 +1,27 @@
+# HA-side cache: independent of ESP32 availability; restored by trigger-template integration.
+- triggers:
+    - trigger: state
+      entity_id:
+        - sensor.linear_garage_controller_gate_state
+        - sensor.linear_garage_controller_opening
+    - trigger: homeassistant
+      event: start
+    - trigger: event
+      event_type: event_template_reloaded
+  conditions:
+    - condition: template
+      value_template: >-
+        {{ states('sensor.linear_garage_controller_gate_state') in
+           ['closed', 'opening', 'closing', 'stopped', 'open_estimated']
+           and is_number(states('sensor.linear_garage_controller_opening')) }}
+  sensor:
+    - name: Linear Garage Last Known Gate State
+      unique_id: linear_garage_last_known_door_state
+      icon: mdi:history
+      state: "{{ states('sensor.linear_garage_controller_gate_state') }}"
+      attributes:
+        last_known_opening: "{{ states('sensor.linear_garage_controller_opening') | float }}"
+        state_recorded_at: "{{ states.sensor.linear_garage_controller_gate_state.last_updated.isoformat() }}"
+        opening_recorded_at: "{{ states.sensor.linear_garage_controller_opening.last_updated.isoformat() }}"
+        source_entity: sensor.linear_garage_controller_gate_state
+        meaning: "Cached last valid observation; not a live door position"

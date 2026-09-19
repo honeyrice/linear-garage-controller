@@ -1,0 +1,91 @@
+# SRD-03VDC-SL-C module: VCC=3V3, GND=GND, IN=GPIO13.
+# High-active verified by disconnected-contact actuation/release on 2026-09-17.
+# ALWAYS_OFF controls firmware startup, not the pre-firmware reset interval.
+esphome:
+  includes:
+    - <gate_controller.h>
+    - gate_controller.h
+
+globals:
+  - id: gate_control
+    type: linear_garage::GateController
+    restore_value: no
+
+text_sensor:
+  - platform: template
+    id: gate_control_status
+    name: Gate Control Status
+    # Keep request/queued/error feedback with regular sensors in the device UI.
+    update_interval: never
+
+interval:
+  - interval: 50ms
+    then:
+      - lambda: |-
+          auto &c = id(gate_control);
+          if (c.tick(linear_garage::observe_gate(id(tracker), millis()),
+                     millis(), id(gate_button_pulse).is_running())) {
+            ESP_LOGI("gate_control", "Sending pulse %u", c.pulses());
+            id(gate_button_pulse).execute();
+          }
+          if (!id(gate_control_status).has_state() || id(gate_control_status).state != c.status()) {
+            id(gate_control_status).publish_state(c.status());
+            ESP_LOGI("gate_control", "%s", c.status());
+          }
+
+switch:
+  - platform: gpio
+    id: gate_relay
+    internal: true
+    pin:
+      number: GPIO13
+      inverted: false
+    restore_mode: ALWAYS_OFF
+    on_turn_on:
+      - binary_sensor.template.publish:
+          id: relay_command_active
+          state: ON
+      - logger.log: "RELAY command ON"
+    on_turn_off:
+      - binary_sensor.template.publish:
+          id: relay_command_active
+          state: OFF
+      - logger.log: "RELAY command OFF"
+
+binary_sensor:
+  - platform: template
+    id: relay_command_active
+    name: Relay Command Active
+    entity_category: diagnostic
+    lambda: return id(gate_relay).state;
+
+script:
+  - id: gate_button_pulse
+    mode: single
+    then:
+      - switch.turn_on: gate_relay
+      - delay: 500ms
+      - switch.turn_off: gate_relay
+      # Controller remembers the latest target while this pulse lock is active.
+      - delay: 1500ms
+
+button:
+  - platform: template
+    name: Gate Button
+    id: gate_button
+    icon: mdi:gesture-tap-button
+    on_press:
+      - lambda: id(gate_control).request_raw(millis());
+  - platform: template
+    # User authorized unknown-direction probing on 2026-09-17.
+    name: Open Gate
+    icon: mdi:garage-open
+    on_press:
+      - lambda: |-
+          id(gate_control).request(1, millis(), id(gate_button_pulse).is_running(), true);
+  - platform: template
+    name: Close Gate
+    icon: mdi:garage
+    on_press:
+      - lambda: |-
+          id(gate_control).request(-1, millis(), id(gate_button_pulse).is_running(), true);

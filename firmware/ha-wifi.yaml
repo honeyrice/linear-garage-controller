@@ -1,0 +1,61 @@
+substitutions:
+  # Must report off when fully closed, on otherwise.
+  closed_contact_entity: binary_sensor.garage_closed_contact
+
+# Secrets are supplied by the build process, never committed to this workspace.
+packages:
+  position: !include position.yaml
+  relay: !include relay.yaml
+  bluetooth: !include bluetooth.yaml
+  memory: !include memory.yaml
+
+wifi:
+  ssid: !env_var LINEAR_WIFI_SSID
+  password: !env_var LINEAR_WIFI_PASSWORD
+  reboot_timeout: 0s
+  on_disconnect:
+    then:
+      - lambda: id(tracker).contact("unavailable", millis());
+
+api:
+  encryption:
+    key: !env_var LINEAR_API_KEY
+  reboot_timeout: 0s
+  on_client_disconnected:
+    then:
+      - lambda: |-
+          if (client_info.find("Home Assistant") != std::string::npos)
+            id(tracker).contact("unavailable", millis());
+
+ota:
+  - platform: esphome
+    password: !env_var LINEAR_OTA_PASSWORD
+
+text_sensor:
+  - platform: homeassistant
+    id: ha_closed_contact
+    entity_id: ${closed_contact_entity}
+    internal: true
+    on_value:
+      then:
+        - lambda: |-
+            id(tracker).contact(x.c_str(), millis());
+            ESP_LOGI("reference", "HA garage contact=%s", x.c_str());
+  - platform: wifi_info
+    ip_address:
+      name: IP Address
+      entity_category: diagnostic
+
+binary_sensor:
+  - platform: status
+    name: Controller Online
+
+sensor:
+  - platform: wifi_signal
+    name: WiFi Signal
+    update_interval: 60s
+    entity_category: diagnostic
+  - platform: uptime
+    name: Uptime
+    update_interval: 60s
+    entity_category: diagnostic

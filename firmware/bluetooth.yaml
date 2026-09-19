@@ -1,0 +1,10 @@
+# Match the BLE capabilities of the household ESPHome Bluetooth Proxy 26.8.2.
+# Keep default scan interval/window for Wi-Fi coexistence.
+# Remove this package from ha-wifi.yaml and rebuild to disable Bluetooth alone.
+esp32_ble_tracker:
+  scan_parameters:
+    active: true
+
+bluetooth_proxy:
+  active: true
+  connection_slots: 3

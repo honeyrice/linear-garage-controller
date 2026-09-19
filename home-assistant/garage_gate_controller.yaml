@@ -1,0 +1,51 @@
+# Replacement for the existing garage block in /homeassistant/templates/covers.yaml.
+# Keep the old cover unique_id/entity_id so dashboards and voice aliases survive.
+- cover:
+    - name: Garage Gate Controller
+      unique_id: garage_gate_controller
+      default_entity_id: cover.garage_gate_controller
+      device_class: garage
+      availability: >-
+        {{ is_state('binary_sensor.linear_garage_controller_controller_online', 'on')
+           and states('sensor.linear_garage_controller_motion') in ['opening', 'closing', 'stopped']
+           and not is_state('button.linear_garage_controller_open_gate', 'unavailable')
+           and not is_state('button.linear_garage_controller_close_gate', 'unavailable') }}
+      state: >-
+        {% set motion = states('sensor.linear_garage_controller_motion') %}
+        {% set gate = states('sensor.linear_garage_controller_gate_state') %}
+        {% if motion in ['opening', 'closing'] %}
+          {{ motion }}
+        {% elif gate == 'closed' %}
+          closed
+        {% elif gate in ['open_estimated', 'stopped'] %}
+          open
+        {% else %}
+          {{ none }}
+        {% endif %}
+      position: >-
+        {% set value = states('sensor.linear_garage_controller_opening') | float(none) %}
+        {{ ([0, [100, value] | min] | max) | round(0) | int if value is not none else none }}
+      open_cover:
+        - condition: state
+          entity_id: binary_sensor.linear_garage_controller_controller_online
+          state: 'on'
+        - action: button.press
+          target:
+            entity_id: button.linear_garage_controller_open_gate
+      close_cover:
+        - condition: state
+          entity_id: binary_sensor.linear_garage_controller_controller_online
+          state: 'on'
+        - action: button.press
+          target:
+            entity_id: button.linear_garage_controller_close_gate
+      stop_cover:
+        - condition: state
+          entity_id: binary_sensor.linear_garage_controller_controller_online
+          state: 'on'
+        - condition: template
+          value_template: >-
+            {{ states('sensor.linear_garage_controller_motion') in ['opening', 'closing'] }}
+        - action: button.press
+          target:
+            entity_id: button.linear_garage_controller_gate_button

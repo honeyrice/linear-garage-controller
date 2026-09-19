@@ -1,0 +1,376 @@
+{
+  "outer_mm": [
+    82.22,
+    57.5,
+    32
+  ],
+  "floor_mm": 2.0,
+  "roof_mm": 1.6,
+  "wall_mm": 2.4,
+  "seam_z_mm": 26,
+  "snap_stations_mm": {
+    "left": [
+      28.75
+    ],
+    "right": [
+      28.75
+    ],
+    "bottom": [
+      14,
+      66
+    ],
+    "top": [
+      14,
+      66
+    ]
+  },
+  "esp32": {
+    "main_pcb_origin_mm": [
+      31.64,
+      5.5,
+      6
+    ],
+    "main_pcb_lwt_mm": [
+      48.18,
+      28.08,
+      1.62
+    ],
+    "source": "PCB measured previously; complete wired height 26mm remeasured by user 2026-09-17. Above-PCB equivalent 26 - 4.79 = 21.21mm.",
+    "wired_height_above_pcb_top_mm": 21.21,
+    "wired_total_height_mm": 26,
+    "headers": {
+      "plastic_height_mm": 2.59,
+      "pin_exposed_height_mm": 6.21,
+      "solder_height_mm": 1.9,
+      "plastic_usb_end_inset_mm": 0.0,
+      "pitch_mm": 2.54,
+      "pins_per_row": 19,
+      "usb_pin_centre_inset_mm": 1.29,
+      "row_spacing_mm": 25.4,
+      "plastic_width_mm": 2.54,
+      "pin_square_mm": 0.64,
+      "solder_envelope_width_mm": 2.0,
+      "clearance_mm": 0.2,
+      "bare_pin_clearance_mm": 0.3,
+      "female_body_envelope_width_mm": 2.8,
+      "reference_scope": "Pin centre/row positions from Espressif nominal DevKitC V4; 0.64mm square post from Samtec reference; 2.0mm solder envelope conservatively exceeds KiCad 1.7mm pad, not a user measurement.",
+      "unused_usb_end_length_mm": 2.54,
+      "wiring_basis": "No female connectors on USB-end 5V/CLK pins; relay VCC uses 3V3, confirmed in WIRING.md and user correction 2026-09-18",
+      "lower_row_connected_pins_from_antenna_1based": [
+        1,
+        2,
+        3
+      ],
+      "lower_row_wiring_basis": "WIRING.md and layout photo: GND, GPIO23, GPIO22 only in lower row; remaining pin posts retained in envelope"
+    }
+  },
+  "relay": {
+    "pcb_origin_mm": [
+      3.4,
+      35.83,
+      7
+    ],
+    "pcb_lwt_mm": [
+      70.45,
+      17,
+      1.55
+    ],
+    "above_pcb_mm": 15.2,
+    "below_pcb_mm": 4,
+    "source": "User correction: PCB length 70.45 mm replaces mistaken 74.42 mm; width and thickness unchanged"
+  },
+  "level_converter": {
+    "pcb_origin_mm": [
+      4.6,
+      12.04,
+      6.72
+    ],
+    "pcb_lwt_mm": [
+      12.35,
+      15,
+      0.9
+    ],
+    "source": "user measurement 2026-09-17; PCB top aligned with ESP32 at Z=7.62"
+  },
+  "ports": {
+    "encoder": {
+      "centre_y_mm": 19.54,
+      "opening_wh_mm": [
+        6.85,
+        2.11
+      ],
+      "bottom_z_mm": 20.51,
+      "source": "User-confirmed upper-edge height 2026-09-17; measured bundle opening retained with 0.20mm clearance per side",
+      "bundle_wh_mm": [
+        6.45,
+        1.71
+      ],
+      "height_datum": "opening upper edge; explicitly confirmed by user",
+      "reference_board": "level_converter",
+      "above_pcb_top_mm": 15.0,
+      "top_z_mm": 22.62,
+      "centre_z_mm": 21.565,
+      "height_reference": "upper_edge"
+    },
+    "relay_contacts": {
+      "centre_y_mm": 46.12,
+      "opening_wh_mm": [
+        4.23,
+        2.23
+      ],
+      "bottom_z_mm": 13.235,
+      "source": "User requests entire Control wire port moved down 1.0 mm from V0.26; partly reverse prior +1.8 mm rise. Width, height and horizontal centre unchanged.",
+      "bundle_wh_mm": [
+        3.83,
+        1.83
+      ],
+      "height_datum": "wire and opening centre; user correction replaces former upper-edge +3.5mm datum",
+      "reference_board": "relay",
+      "above_pcb_top_mm": 5.8,
+      "top_z_mm": 15.465,
+      "centre_z_mm": 14.35,
+      "height_reference": "centre",
+      "distance_from_outer_y_max_mm": 11.38,
+      "raised_from_v022_mm": 0.8,
+      "lowered_from_v026_mm": 1.0
+    },
+    "usb": {
+      "opening_wh_mm": [
+        8.43,
+        3.4
+      ],
+      "bottom_z_mm": 3.43,
+      "source": "Original accepted Rivian V0.27 YZ opening retained; extended through new 2.4mm flat wall. User accepts recessed receptacle.",
+      "top_z_mm": 6.83,
+      "final_reference": "rivian-12v-battery-monitor/housing/v0_27"
+    }
+  },
+  "status": "V0.27: Control wire opening moved down 1 mm; base slot and lid infill updated together, all other geometry retained.",
+  "wall_reference": {
+    "source": "enclosure-3d-print/source/ESP Case Parametric V2-2.stl",
+    "lid_collar_mm": 1.2,
+    "current_groove_radial_backing_mm": 0.90955,
+    "source_groove_radial_backing_mm": 0.45955,
+    "joint_lap_mm": 4,
+    "bead_projection_mm": 0.5,
+    "arbitrary_2mm_collar_change_applied": false
+  },
+  "wire_infill_posts": {
+    "thickness_mm": 2.4,
+    "outside_face_x_mm": 0,
+    "roof_overlap_mm": 0.02,
+    "side_gap_each_mm": 0.2
+  },
+  "mounting_design": {
+    "source": "../v0_26/build.py",
+    "style": "Converter top-load with two side flexures, rear travel stops and fixed end locators; wall-side red spring removed.",
+    "reason": "User explicitly requested removing the redundant red converter spring.",
+    "physical_fit": "NOT VERIFIED",
+    "rigid_stop_thickness_mm": 1.6,
+    "rigid_stop_root_flare_mm": 0.6,
+    "rigid_stop_root_rise_mm": 1.2,
+    "usb_fixed_lip_thickness_mm": 0,
+    "spring_thickness_mm": 0.8,
+    "spring_reference": "rivian-12v-battery-monitor/housing/v0_27/parameters.json: retention.lower_spring_thickness_mm",
+    "end_clearance_each_mm": 0.25,
+    "relay_clear_length_mm": 70.95,
+    "esp_side_stop_centre_from_antenna_end_mm": 12,
+    "cable_tie_anchors": false,
+    "wall_backed_stop_body_overlap_mm": 0.02,
+    "converter_wire_pocket_outer_skin_mm": 2.4,
+    "converter_wire_pocket_clearance_mm": 0.2,
+    "esp_antenna_clip_width_mm": 2.0,
+    "esp_antenna_clip_centre_inset_y_mm": 3.82,
+    "usb_lip_inset_from_long_edge_mm": 3.4,
+    "usb_lip_width_mm": 2.8,
+    "relay_inner_mount_style": "Two rigid side stops with joined bottom seats; no inner spring arms or upper hooks",
+    "relay_inner_post_thickness_mm": 1.6,
+    "relay_inner_post_width_mm": 4,
+    "relay_inner_seat_depth_mm": 0.9,
+    "relay_outer_spring_count": 2,
+    "usb_seat_inward_length_mm": 1.0
+  },
+  "layout_notes": {
+    "converter_esp_centres_y_aligned": true,
+    "relay_pcb_to_esp_pcb_gap_y_mm": 2.25,
+    "encoder_port_follows_converter_centre": true,
+    "control_port_y_mm": 46.12,
+    "control_port_reason": "User-confirmed new centre 11.38 mm from outer Y-max wall.",
+    "left_wall_reduction_mm": 1.55,
+    "lower_wall_reduction_mm": -1.0,
+    "upper_wall_reduction_mm": 0,
+    "usb_end_relative_to_esp_unchanged": false,
+    "usb_hole_yz_relative_to_esp_unchanged": true
+  },
+  "usb_local_reinforcement": {
+    "outward_extension_mm": 0.0,
+    "band_width_mm": 4.4,
+    "overall_max_length_mm": 82.22,
+    "purpose": "No exterior reinforcement. Uniform end wall with straight inner and outer faces.",
+    "height_mm": 11.6,
+    "enabled": false
+  },
+  "relay_end_braces": {
+    "location": "Two right short-edge stops, opposite left control-wire exit",
+    "width_y_mm": 3.0,
+    "height_z_mm": 2.0,
+    "post_overlap_x_mm": 0.3,
+    "wall_overlap_x_mm": 0.4,
+    "top_above_relay_pcb_top_mm": 0.1,
+    "print_support": "User permits underside supports left in place; slicer support configuration and toolpaths not generated",
+    "enabled": false
+  },
+  "wall_backed_pcb_springs": {
+    "esp_centres_from_antenna_pcb_edge_mm": [
+      12.0,
+      38.18
+    ],
+    "esp_width_mm": 3.5,
+    "esp_hook_target": "Retained plastic header upper outer edge; not PCB top",
+    "converter_width_mm": 3.0,
+    "converter_centre_from_lower_edge_mm": 12.58,
+    "converter_pocket_back_x_mm": 2.4,
+    "pocket_bottom_z_mm": 2.8,
+    "spring_thickness_mm": 0.8,
+    "pocket_side_gap_mm": 0.4,
+    "converter_hook_target": "Bare PCB outer edge midway between top two left pads",
+    "converter_hook_width_mm": 2.0,
+    "converter_hook_overlap_mm": 0.55,
+    "converter_top_pad_inset_y_mm": 1.15,
+    "converter_pad_pitch_mm": 2.54,
+    "converter_pad_centre_inset_x_mm": 1.25,
+    "converter_pad_diameter_envelope_mm": 2.0,
+    "converter_pad_clearance_mm": 0.1,
+    "converter_left_wire_end_from_upper_edge_mm": 4.6,
+    "converter_pad_basis": "User identifies the two top-left pads, visibly unused in compact wired photo. Nominal 2.54 pitch and symmetric 1.15 end margin on 15mm PCB; XY and pad diameters are design estimates, not caliper measurements.",
+    "esp_back_wall_inner_y_mm": 2.4,
+    "esp_free_rear_gap_mm": 2.05,
+    "converter_enabled": false
+  },
+  "width_expansion": {
+    "from_version": "v0_15",
+    "added_width_mm": 2.5,
+    "previous_width_mm": 55,
+    "current_width_mm": 57.5,
+    "new_space_side": "ESP32 outer long side",
+    "coordinate_change": "Translate all PCB origins, wire ports and left/right shell snaps +2.5mm Y. Bottom wall stays Y=0. Other PCB-relative geometry retained.",
+    "requires_matching_lid": true,
+    "esp_rear_gap_old_mm": 0.75,
+    "esp_rear_gap_new_mm": 2.05,
+    "esp_wall_thickness_new_mm": 2.4
+  },
+  "usb_flush_wall": {
+    "plane_x_mm": 82.22,
+    "inner_plane_x_mm": 79.82,
+    "uniform_main_wall_mm": 2.4,
+    "local_exterior_protrusions": 0
+  },
+  "usb_flat_inner_wall": {
+    "inner_face_x_mm": 79.82,
+    "outer_face_x_mm": 82.22,
+    "wall_thickness_mm": 2.4,
+    "pcb_end_to_inner_wall_mm": 0.0,
+    "header_reliefs": false,
+    "pcb_tail_slot": false,
+    "usb_fixed_upper_lips": false,
+    "usb_receptacle_tip_x_mm": 80.65,
+    "usb_receptacle_recess_from_outer_mm": 1.57,
+    "recess_accepted_by_user": true,
+    "opening_profile": "Retain accepted 8.43 x 3.4 mm through profile; no enlarged plastic-body opening",
+    "physical_insertion_depth": "Not newly measured; user explicitly accepts recessed connector and keeping original opening"
+  },
+  "fit_base": {
+    "height_mm": 12.0,
+    "purpose": "PCB seating, clips, stops and USB opening only; no lid or high cable outlet validation",
+    "previous_height_mm": 18,
+    "reason": "18mm retained obsolete header relief coverage; flat USB wall removes that requirement"
+  },
+  "relay_end_springs": {
+    "count": 2,
+    "width_mm": 3.0,
+    "thickness_mm": 0.8,
+    "rear_gap_mm": 1.22,
+    "rear_gap_reference": "Relay long-side spring working arm to inner wall: 57.5-2.4-(35.83+17+0.25+0.8)=1.22 mm",
+    "stop_post_thickness_mm": 1.6,
+    "stop_post_width_mm": 3.0,
+    "stop_post_root_flare_mm": 0.6,
+    "post_height_matches_clip_top": true,
+    "hook_overlap_mm": 0.4,
+    "pcb_side_clearance_mm": 0.25,
+    "working_arm_root_top_z_mm": 2.8,
+    "nominal_rigid_contact_translation_mm": 1.22,
+    "physical_bending_limit": "Not established by rigid translation; print material/force/fatigue require physical fitting"
+  },
+  "converter_flat_wall": {
+    "inward_board_shift_mm": 1.2,
+    "previous_pcb_x_mm": 3.4,
+    "pcb_x_mm": 4.6,
+    "wall_mm": 2.4,
+    "broad_wire_pocket": false,
+    "local_spring_pocket": false,
+    "working_arm_rear_gap_mm": null,
+    "wire_envelope_wall_clearance_mm": 0.2,
+    "existing_wire_envelope_dimensions_retained": true,
+    "fit_status": "Geometry only; actual wire bends and hot glue protrusions need physical trial"
+  },
+  "external_mounting_ears": {
+    "enabled": true,
+    "purpose": "Fasten the assembled enclosure to an external support, not internal wiring retention",
+    "count": 4,
+    "sides": [
+      "bottom",
+      "top"
+    ],
+    "stations_x_mm": [
+      12.0,
+      70.22
+    ],
+    "tie_width_user_confirmed_max_mm": 4.8,
+    "tie_thickness_provisional_max_mm": 1.8,
+    "slot_tangential_radial_mm": [
+      6.2,
+      3.2
+    ],
+    "slot_corner_radius_mm": 0.65,
+    "slot_wall_clearance_mm": 2.4,
+    "outward_projection_mm": 8.2,
+    "tangential_width_mm": 12.2,
+    "thickness_mm": 3.2,
+    "root_overlap_mm": 1.2,
+    "outer_corner_radius_mm": 1.5,
+    "outside_web_mm": 2.6,
+    "side_web_mm": 3.0,
+    "z_bottom_mm": 0,
+    "complete_footprint_mm": [
+      82.22,
+      73.9
+    ],
+    "physical_fit_load_test": "not performed"
+  },
+  "converter_capture": {
+    "insertion_direction": "Vertical from above; two side hooks deflect outward; no sliding rails or red wall-side spring",
+    "side_clip_width_mm": 3.0,
+    "side_clip_thickness_mm": 0.8,
+    "side_hook_overlap_mm": 0.4,
+    "side_hook_width_mm": 2.0,
+    "rear_stop_gap_mm": 1.0,
+    "rear_stop_width_mm": 3.0,
+    "rear_stop_thickness_mm": 1.6,
+    "end_stop_width_mm": 1.6,
+    "red_pad_scallops": false,
+    "unused_red_pads_clearance_waived_by_user": true,
+    "yellow_glue_removal_user_authorized": true,
+    "actual_glue_and_wire_fit": "Simplified envelopes; physical trial required; no longitudinal passage through a fixed PCB-height slot",
+    "red_wall_spring_enabled": false
+  },
+  "relay_inner_front_spring": {
+    "position_x_from_exit_edge_mm": 8,
+    "width_mm": 4,
+    "thickness_mm": 0.8,
+    "rear_gap_mm": 1.22,
+    "stop_post_thickness_mm": 1.6,
+    "stop_post_width_mm": 4,
+    "hook_overlap_mm": 0.4,
+    "keep_seat_separate_from_flexible_arm": true
+  }
+}

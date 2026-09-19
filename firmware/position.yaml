@@ -1,0 +1,118 @@
+# Encoder + HA contact reference. Relay control is a separate optional package.
+esphome:
+  name: linear-garage-controller
+  friendly_name: Linear Garage Controller
+  includes:
+    # ESPHome globals need the type before their generated declarations.
+    - <position_tracker.h>
+    - position_tracker.h
+  on_boot:
+    priority: -100
+    then:
+      - logger.log: "POSITION READY: GPIO22/23; opening positive; awaiting closed reference"
+
+esp32:
+  board: esp32dev
+  flash_size: 4MB
+  framework:
+    type: esp-idf
+
+logger:
+  baud_rate: 115200
+  level: INFO
+
+globals:
+  - id: tracker
+    type: linear_garage::PositionTracker
+    restore_value: no
+
+sensor:
+  - platform: rotary_encoder
+    id: encoder_count
+    internal: true
+    pin_a:
+      number: GPIO22
+      mode: {input: true, pullup: true}
+    pin_b:
+      number: GPIO23
+      mode: {input: true, pullup: true}
+    resolution: 4
+    restore_mode: ALWAYS_ZERO
+    publish_initial_value: true
+    on_value:
+      then:
+        - lambda: id(tracker).sample(static_cast<int32_t>(x), millis());
+  - platform: template
+    id: opening_percent
+    name: Opening
+    unit_of_measurement: "%"
+    accuracy_decimals: 1
+    state_class: measurement
+    update_interval: never
+  - platform: template
+    id: signed_count
+    name: Relative Count
+    accuracy_decimals: 0
+    entity_category: diagnostic
+    update_interval: never
+  - platform: template
+    id: zeroed_count
+    name: Position Count
+    accuracy_decimals: 0
+    entity_category: diagnostic
+    update_interval: never
+  - platform: template
+    id: calibration_count
+    name: Calibration Count
+    accuracy_decimals: 0
+    entity_category: diagnostic
+    update_interval: never
+
+binary_sensor:
+  - platform: template
+    id: position_valid
+    name: Position Calibrated
+    entity_category: diagnostic
+  - platform: template
+    id: reference_available
+    name: Closed Reference Available
+    entity_category: diagnostic
+
+text_sensor:
+  - platform: template
+    id: door_state
+    name: Gate State
+    update_interval: never
+  - platform: template
+    id: door_motion
+    name: Motion
+    update_interval: never
+
+interval:
+  - interval: 250ms
+    then:
+      - lambda: |-
+          auto &t = id(tracker);
+          const uint32_t now = millis();
+          if (t.tick(now)) ESP_LOGI("position", "Closed reference calibrated; count=%lld", (long long)t.count());
+          const float pct = t.percent();
+          if (!id(opening_percent).has_state() ||
+              (std::isnan(pct) != std::isnan(id(opening_percent).state)) ||
+              (!std::isnan(pct) && std::fabs(pct - id(opening_percent).state) >= 0.05f))
+            id(opening_percent).publish_state(pct);
+          const float pc = t.calibrated() ? static_cast<float>(t.position_count()) : NAN;
+          if (!id(zeroed_count).has_state() || (std::isnan(pc) != std::isnan(id(zeroed_count).state)) ||
+              (!std::isnan(pc) && pc != id(zeroed_count).state)) id(zeroed_count).publish_state(pc);
+          if (!id(signed_count).has_state() || id(signed_count).state != t.count())
+            id(signed_count).publish_state(t.count());
+          if (!id(calibration_count).has_state() || id(calibration_count).state != t.calibrations())
+            id(calibration_count).publish_state(t.calibrations());
+          id(position_valid).publish_state(t.calibrated());
+          id(reference_available).publish_state(t.contact_available());
+          if (!id(door_motion).has_state() || id(door_motion).state != t.motion(now))
+            id(door_motion).publish_state(t.motion(now));
+          if (!id(door_state).has_state() || id(door_state).state != t.state(now)) {
+            id(door_state).publish_state(t.state(now));
+            ESP_LOGI("position", "STATE=%s OPENING=%.1f COUNT=%lld CALIBRATED=%d",
+                     t.state(now), pct, (long long)t.position_count(), t.calibrated());
+          }
