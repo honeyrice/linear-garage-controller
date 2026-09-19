@@ -1,0 +1,45 @@
+{
+  "version": "V0.27",
+  "units": "mm",
+  "method": "Reload STL meshes; verify topology and byte-for-byte copies. No slicing or new physical fit test.",
+  "parts": {
+    "garage-v0.27-base.stl": {
+      "sha256": "abee5236451289aa7ed006d93a7ab96e6d3c64b4445630ace516949dfd98f27c",
+      "watertight": true,
+      "winding_consistent": true,
+      "components": 1,
+      "bounds_mm": [
+        [
+          0.0,
+          -8.199999809265137,
+          0.0
+        ],
+        [
+          82.22000122070312,
+          65.69999694824219,
+          30.000999450683594
+        ]
+      ],
+      "volume_mm3": 27534.153975569603
+    },
+    "garage-v0.27-lid.stl": {
+      "sha256": "86adabe2b316769e04a7ed9524d926c0ce26cb222b668b900dc661130ad9b0d2",
+      "watertight": true,
+      "winding_consistent": true,
+      "components": 1,
+      "bounds_mm": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          82.22000122070312,
+          57.5,
+          16.53499984741211
+        ]
+      ],
+      "volume_mm3": 9279.105937181794
+    }
+  }
+}

@@ -23,7 +23,7 @@ ESP32 + ESPHome retrofit for a **Linear LDCO800** garage opener: encoder-based m
 | [控制逻辑](docs/CONTROL.md) | 重复请求、换向、未知位置、脉冲限制 |
 | [固件](firmware/README.md) | 构建、凭据、标定与首次接入 |
 | [Home Assistant](home-assistant/README.md) | Cover、缓存、统计、通知与 HomeKit |
-| [外壳记录](enclosure/README.md) | V0.27 尺寸与模型来源状态 |
+| [外壳记录](enclosure/README.md) | V0.27 底壳 / 上盖 STL、尺寸与网格核验 |
 | [测试](tests/README.md) | 独立 C++ 模拟与 Python 模板测试 |
 | [项目总结](docs/PROJECT.md) | 实测、安装与蓝牙取舍 |
 
